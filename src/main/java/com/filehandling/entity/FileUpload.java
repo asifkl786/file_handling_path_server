@@ -6,11 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @NoArgsConstructor
 public class FileUpload {
     @Id
@@ -66,6 +64,5 @@ public class FileUpload {
 	public void setData(byte[] data) {
 		this.data = data;
 	}
-    
-    
+      
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.filehandling.entity.FileEntity;
-import com.filehandling.repository.FileRepository;
+import com.filehandling.repository.FileEntityRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,15 +17,15 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
-public class FileService {
+public class FileEntityService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(FileService.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileEntityService.class);
 
     @Value("${file.upload-dir}")
     private String uploadDir;
 
      @Autowired
-     FileRepository fileRepository;
+     FileEntityRepository fileRepository;
 
     // Upload file  
     public FileEntity uploadFile(MultipartFile file) throws IOException {
@@ -50,9 +50,9 @@ public class FileService {
        return savedFile;
     }
 
-    // Download all file
+    // Download file By Id
     public Optional<FileEntity> getFile(Long id) {
-    	logger.info("File  Successfully fetch with id ::",id);
+    	logger.info("File  Successfully fetch with id :: {}",id);
         return fileRepository.findById(id);
     }
 }

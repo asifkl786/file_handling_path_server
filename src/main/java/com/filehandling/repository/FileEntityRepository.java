@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.filehandling.entity.FileEntity;
 
 @Repository
-public interface FileRepository extends JpaRepository<FileEntity, Long> {
+public interface FileEntityRepository extends JpaRepository<FileEntity, Long> {
 
 }

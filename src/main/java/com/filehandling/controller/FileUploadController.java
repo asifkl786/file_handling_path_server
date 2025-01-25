@@ -20,6 +20,7 @@ import com.filehandling.service.FileUploadService;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/files")
 public class FileUploadController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
@@ -30,18 +31,17 @@ public class FileUploadController {
 	
 	// Build Upload file REST API 
     @PostMapping("/upload")
-    public FileUploadResponse uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
-    	logger.info("Recived Request to upload file with :: {}",file);
+    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+    	logger.info("Recived Request to upload file with Name :: {}",file.getOriginalFilename());
         FileUpload attachment = null;
         String downloadUrl = "";
-        attachment = uploadService.saveFile(file);
+        attachment = uploadService.uploadFile(file);
         downloadUrl = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
                 .path("/download/")
                 .path(attachment.getId())
                 .toUriString();
         return new FileUploadResponse(attachment.getFileName(), downloadUrl, file.getContentType(), file.getSize());
-
     }
 
     // Build download file REST API

@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import com.filehandling.entity.FileEntity;
-import com.filehandling.service.FileService;
+import com.filehandling.service.FileEntityService;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,16 +20,16 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/files")
-public class FileController {
-	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
+public class FileEntityController {
+	private static final Logger logger = LoggerFactory.getLogger(FileEntityController.class);
 	
 	@Autowired
-	FileService fileService;
+	FileEntityService fileService;
 
 	// Build Upload file REST API 
-    @PostMapping("/upload")
+    @PostMapping("/upload/Entity")
     public ResponseEntity<FileEntity> uploadFile(@RequestParam("file") MultipartFile file) {
-    	logger.info("Recived Request to upload file with :: {}",file);
+    	logger.info("Recived Request to upload file with Name :: {}",file.getOriginalFilename());
     	System.out.println("File received: " + file.getOriginalFilename());
         try {
             FileEntity savedFile = fileService.uploadFile(file);

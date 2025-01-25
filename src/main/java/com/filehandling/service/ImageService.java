@@ -12,7 +12,6 @@ import com.filehandling.repository.ImageRepository;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,14 +29,13 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
+    // Upload Image 
     public Image uploadImage(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         String sanitizedFilename = originalFilename.replaceAll("[^a-zA-Z0-9\\.\\-_]", "_");
         String uniqueFilename = UUID.randomUUID() + "_" + sanitizedFilename;
         String filePath = uploadDir + File.separator + uniqueFilename;
-
-        
-        
+   
         File directory = new File(uploadDir);
         if (!directory.exists()) {
             directory.mkdirs(); // Create directory if it doesn't exist
@@ -47,7 +45,7 @@ public class ImageService {
       //  file.transferTo(new File(filePath));
         try {
             file.transferTo(new File(filePath));
-            logger.info("File successfully saved: " + filePath);
+            logger.info("File successfully saved to : " + filePath);
         } catch (IOException e) {
             logger.error("Failed to save file", e);
             throw new RuntimeException("File upload failed", e);
@@ -56,13 +54,17 @@ public class ImageService {
         // Save metadata to database
         Image image = new Image();
         image.setName(originalFilename);
-        image.setUrl(uniqueFilename);
-        image.setUploadTime(LocalDateTime.now());
+        image.setUrl(filePath);
+        image.setProfilePicturePath(filePath);
         return imageRepository.save(image);
     }
 
+    
+    // Get All Image
     public List<Image> getAllImages() {
-        return imageRepository.findAll();
+        List<Image> allImages = imageRepository.findAll();
+        logger.info("{} :: File Successfully Found",allImages.size());
+        return allImages;
     }
 }
 

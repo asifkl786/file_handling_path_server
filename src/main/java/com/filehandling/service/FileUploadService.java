@@ -21,21 +21,24 @@ public class FileUploadService {
 	@Autowired
     private FileUploadRepository uploadRepository;
 
-    public FileUpload saveFile(MultipartFile file) throws Exception {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-            try {
-                if (fileName.contains("..")) {
-                    throw new Exception("The file name is invalid" + fileName);
-                }
-                FileUpload fileUpload = new FileUpload(fileName, file.getContentType(), file.getBytes());
-                logger.info("File Upload Successfully with Name{} ",fileName);
-                return uploadRepository.save(fileUpload);
-            } catch (Exception e) {
-                throw new Exception("File could not be save");
-            }
+		// File Upload
+	    public FileUpload uploadFile(MultipartFile file) throws Exception {
+	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	
+	            try {
+	                if (fileName.contains("..")) {
+	                    throw new Exception("The file name is invalid" + fileName);
+	                }
+	                FileUpload fileUpload = new FileUpload(fileName, file.getContentType(), file.getBytes());
+	                logger.info("File Upload Successfully with Name ::{} ",fileName);
+	                return uploadRepository.save(fileUpload);
+	            } catch (Exception e) {
+	                throw new Exception("File could not be save");
+	            }
         }
 
+    
+        // File Download  
         public FileUpload downloadFile(String fileId) throws Exception {
         	logger.info("File Download Successfully with id ::",fileId);
         return uploadRepository.findById(fileId)

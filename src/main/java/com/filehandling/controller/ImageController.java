@@ -29,9 +29,11 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+    
+    // Build Upload Image REST API
     @PostMapping("/upload")
     public ResponseEntity<Image> uploadImage(@RequestParam("file") MultipartFile file) {
-    	logger.info("Recived Request to upload file with :: {}",file);
+    	logger.info("Recived Request to upload file with :: {}",file.getOriginalFilename());
         try {
             Image uploadedImage = imageService.uploadImage(file);
             return ResponseEntity.ok(uploadedImage);
@@ -40,8 +42,10 @@ public class ImageController {
         }
     }
 
+    // Build get all Image REST API 
     @GetMapping
     public ResponseEntity<List<Image>> getAllImages() {
+    	logger.info("Recived Request to get All file ");
         return ResponseEntity.ok(imageService.getAllImages());
     }
 }

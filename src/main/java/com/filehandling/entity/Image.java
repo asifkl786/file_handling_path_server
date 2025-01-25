@@ -2,13 +2,9 @@ package com.filehandling.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Data
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +12,7 @@ public class Image {
 
     private String name;
     private String url;
-    private LocalDateTime uploadTime;
+    private String profilePicturePath;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
@@ -29,12 +25,12 @@ public class Image {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Image(Long id, String name, String url, LocalDateTime uploadTime, Date createdAt, Date updatedAt) {
+	public Image(Long id, String name, String url, String profilePicturePath, Date createdAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.url = url;
-		this.uploadTime = uploadTime;
+		this.profilePicturePath = profilePicturePath;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
@@ -63,12 +59,12 @@ public class Image {
 		this.url = url;
 	}
 
-	public LocalDateTime getUploadTime() {
-		return uploadTime;
+	public String getProfilePicturePath() {
+		return profilePicturePath;
 	}
 
-	public void setUploadTime(LocalDateTime uploadTime) {
-		this.uploadTime = uploadTime;
+	public void setProfilePicturePath(String profilePicturePath) {
+		this.profilePicturePath = profilePicturePath;
 	}
 
 	public Date getCreatedAt() {
@@ -89,9 +85,8 @@ public class Image {
 
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", url=" + url + ", uploadTime=" + uploadTime + ", createdAt="
-				+ createdAt + ", updatedAt=" + updatedAt + "]";
+		return "Image [id=" + id + ", name=" + name + ", url=" + url + ", profilePicturePath=" + profilePicturePath
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
-    
-    
+	
 }

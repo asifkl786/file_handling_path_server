@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "files")
+@Table(name = "File_Entity")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

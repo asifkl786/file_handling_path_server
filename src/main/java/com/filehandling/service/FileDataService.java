@@ -12,59 +12,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.filehandling.entity.FileData;
-import com.filehandling.entity.ImageData;
 import com.filehandling.exception.ResourceNotFoundException;
 import com.filehandling.repository.FileDataRepository;
-import com.filehandling.repository.StorageRepository;
-import com.filehandling.util.ImageUtils;
-
 
 @Service
-public class StorageService {
-
+public class FileDataService {
 	
-	@Autowired
-    private StorageRepository repository;
+	private static final Logger logger = LoggerFactory.getLogger(FileDataService.class);
 
-    @Autowired
-    private FileDataRepository fileDataRepository;
-    
-    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
-
-    //  private final String FOLDER_PATH="/Users/javatechie/Desktop/MyFIles/";
-    
-    //  private final String FOLDER_PATH="/src/main/webapp/picture/";C:\Users\Asif Khan\OneDrive\Desktop\myfiles
-    //  private static final String UPLOAD_DIR = "C:/uploads";"C:\Users\Asif Khan\OneDrive\Desktop\my files"
-   // "C:\Users\Public\Documents"
-    // Define the directory where files will be saved
-    private static final String UPLOAD_DIR ="C:\\Users\\Public\\MyFile\\images";
-    
-    
-    // Upload image to database
-    public String uploadImage(MultipartFile file) throws IOException {
-        ImageData imageData = repository.save(ImageData.builder()
-                .name(file.getOriginalFilename())
-                .type(file.getContentType())
-                .imageData(ImageUtils.compressImage(file.getBytes())).build());
-        logger.info("File Successfully Upload With {} ::", file.getOriginalFilename());
-        System.out.println("Image size: " + imageData.getImageData() + " bytes");
-
-        if (imageData != null) {
-            return "file uploaded successfully : " + file.getOriginalFilename();
-        }
-        return null;
-    }
-
-    // Download image from database only one image can download
-    public byte[] downloadImage(String fileName) {
-        Optional<ImageData> dbImageData = repository.findByName(fileName);
-        byte[] images = ImageUtils.decompressImage(dbImageData.get().getImageData());
-        logger.info("File Successfully Download",images);
-        return images;
-    }
- 
-    
-    // Upload image as fileSystem
+	  @Autowired
+	  private FileDataRepository fileDataRepository;
+	  
+	  
+	  // Define the directory where files will be saved
+	  private static final String UPLOAD_DIR ="C:\\Users\\Public\\MyFile\\images";
+	  
+	 // Upload image as fileSystem
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
         String filePath=UPLOAD_DIR+file.getOriginalFilename();
 
@@ -73,6 +36,7 @@ public class StorageService {
                 .type(file.getContentType())
                 .filePath(filePath).build());
 
+        logger.info("{} :: File Successfully Upload ", file.getOriginalFilename());
         file.transferTo(new File(filePath));
 
         if (fileData != null) {
@@ -105,7 +69,7 @@ public class StorageService {
             throw new ResourceNotFoundException("File path is not set for the given ID: " + id);
         }
         
-        logger.info("File Successfully download with :: {}", fileData);
+        logger.info("File Successfully download with Name :: {}", fileData.getName());
         // Read the file as bytes
         return Files.readAllBytes(new File(filePath).toPath());
         
