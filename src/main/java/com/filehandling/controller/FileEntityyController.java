@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.filehandling.entity.FileEntityy;
 import com.filehandling.service.FileEntityyService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/files")
 public class FileEntityyController {

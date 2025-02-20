@@ -16,7 +16,7 @@ import com.filehandling.repository.FileUploadRepository;
 @AllArgsConstructor
 public class FileUploadService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ImageService.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileUploadService.class);
 	
 	@Autowired
     private FileUploadRepository uploadRepository;
