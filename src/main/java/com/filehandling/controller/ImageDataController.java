@@ -33,8 +33,8 @@ private static final Logger logger = LoggerFactory.getLogger(ImageDataController
 	
 	// Build Upload Image REST API
 	@PostMapping
-	public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
-		logger.info("Recived Request to upload file with :: {}",file);
+	public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+		logger.info("Recived Request to upload file with :: {}",file.getOriginalFilename());
 		String uploadImage = service.uploadImage(file);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(uploadImage);

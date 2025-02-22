@@ -30,7 +30,7 @@ public class UserController {
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/images";
 	
 	@PostMapping("/create")
-	public ResponseEntity<User> createUser(@ModelAttribute User user, @RequestParam("image") MultipartFile file) throws IOException {
+	public ResponseEntity<User> createUser(@ModelAttribute User user, @RequestParam("file") MultipartFile file) throws IOException {
 		logger.info("Recived Request to upload file with Name :: {}",user.getName());
 		String orignalFileName = file.getOriginalFilename();
 		Path fileNameAndPath = Paths.get(uploadDirectory,orignalFileName);

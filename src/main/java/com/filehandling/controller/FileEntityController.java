@@ -27,13 +27,14 @@ public class FileEntityController {
 	FileEntityService fileService;
 
 	// Build Upload file REST API 
-    @PostMapping("/upload/Entity")
+    @PostMapping("/upload/entity")
     public ResponseEntity<FileEntity> uploadFile(@RequestParam("file") MultipartFile file) {
     	logger.info("Recived Request to upload file with Name :: {}",file.getOriginalFilename());
     	System.out.println("File received: " + file.getOriginalFilename());
         try {
             FileEntity savedFile = fileService.uploadFile(file);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedFile);
+            return new ResponseEntity<>(savedFile,HttpStatus.CREATED);
+           // return ResponseEntity.status(HttpStatus.CREATED).body(savedFile);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

@@ -29,13 +29,20 @@ public class FileDataService {
 	  
 	 // Upload image as fileSystem
     public String uploadImageToFileSystem(MultipartFile file) throws IOException {
-        String filePath=UPLOAD_DIR+file.getOriginalFilename();
+       // String filePath=UPLOAD_DIR+file.getOriginalFilename();
+    	String filePath = UPLOAD_DIR + File.separator + file.getOriginalFilename();
 
+    	/*
         FileData fileData=fileDataRepository.save(FileData.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
-                .filePath(filePath).build());
-
+                .filePath(filePath).build()); */
+    	FileData fileData = FileData.builder()
+    			                    .name(file.getOriginalFilename())
+    			                    .type(file.getContentType())
+    			                    .filePath(filePath)
+    			                    .build();
+        fileDataRepository.save(fileData);
         logger.info("{} :: File Successfully Upload ", file.getOriginalFilename());
         file.transferTo(new File(filePath));
 
@@ -45,9 +52,9 @@ public class FileDataService {
         return null;
     }
 
-    
+   
     // Download image as in fileSystem
-    public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
+    public byte[] downloadImage(String fileName) throws IOException {
         Optional<FileData> fileData = fileDataRepository.findByName(fileName);
         String filePath=fileData.get().getFilePath();
         byte[] images = Files.readAllBytes(new File(filePath).toPath());

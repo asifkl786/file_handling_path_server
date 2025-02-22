@@ -1,4 +1,5 @@
 package com.filehandling.helper;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -13,9 +14,8 @@ public class FileUploadHelper {
 	
 	public boolean uploadFile(MultipartFile file) {
 		boolean filee =false;
-		
 		try {
-			Files.copy(file.getInputStream(), Paths.get(UPLOAD_DIR+ file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(file.getInputStream(), Paths.get(UPLOAD_DIR+ File.separator+ file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 			filee=true;
 			
 		}catch(Exception e){

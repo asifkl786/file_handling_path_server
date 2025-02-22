@@ -21,7 +21,7 @@ import com.filehandling.service.FileDataService;
 
 
 @RestController
-@RequestMapping("/api/files")
+@RequestMapping("/api/v2/files")
 public class FileDataController {
 	
 private static final Logger logger = LoggerFactory.getLogger(FileDataController.class);
@@ -39,16 +39,17 @@ private static final Logger logger = LoggerFactory.getLogger(FileDataController.
 				.body(uploadImage);
 	}
 
+	/*
 	// Build Download image REST API as file System
-	@GetMapping("/fileSystem/{fileName}")
-	public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws IOException {
+	@GetMapping("fileSystem/{fileName}")
+	public ResponseEntity<?> downloadImage(@PathVariable String fileName) throws IOException {
 		logger.info("Recived Request to download file with :: {}",fileName);
-		byte[] imageData=service.downloadImageFromFileSystem(fileName);
+		byte[] imageData=service.downloadImage(fileName);
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.valueOf("image/png"))
 				.body(imageData);
 
-	}
+	} */ 
 	
 	// Build Download image REST API as file System
 	@GetMapping("/fileSystem/{id}")

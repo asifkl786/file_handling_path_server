@@ -35,7 +35,7 @@ public class FileEntityService {
             Files.createDirectories(uploadPath);
         }
 
-        // Save file to disk
+        // Save file to disk (file.upload-dir=C:/Users/Public/MyFiles/file)
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path filePath = uploadPath.resolve(fileName);
         Files.write(filePath, file.getBytes());

@@ -1,5 +1,8 @@
 package com.filehandling.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,8 @@ public class FileUploadControllerr {
 	@Autowired
 	private FileUploadHelper helper;
 	
+	 private static final List<String> ALLOWED_FILE_TYPES = Arrays.asList("image/jpeg", "image/png","application/pdf", "video/mp4");
+	
 	
 	@PostMapping("/upload-file")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file){
@@ -23,15 +28,23 @@ public class FileUploadControllerr {
 		//System.out.println(file.getName());
 		//System.out.println(file.getOriginalFilename());
 		//System.out.println(file.getSize());
-		
+		 // Allowed file types
+	   
 		try {
 			// Validation
 			if(file.isEmpty()) {
 				return new ResponseEntity<>("Please select a file",HttpStatus.BAD_REQUEST);
 			}
+			/*
 			if(!file.getContentType().equals("image/jpeg")) {
 				return new ResponseEntity<>("Other than Jpeg is allow ",HttpStatus.BAD_REQUEST);
-			}
+			} */
+			
+			// Validate file type
+	        String fileType = file.getContentType();
+	        if (!ALLOWED_FILE_TYPES.contains(fileType)) {
+	            throw new RuntimeException("File type not allowed. Allowed types: " + ALLOWED_FILE_TYPES);
+	        }
 			
 			// File upload code 
 			boolean fileUploaded = helper.uploadFile(file);

@@ -36,7 +36,8 @@ public class ImageController {
     	logger.info("Recived Request to upload file with :: {}",file.getOriginalFilename());
         try {
             Image uploadedImage = imageService.uploadImage(file);
-            return ResponseEntity.ok(uploadedImage);
+           // return ResponseEntity.ok(uploadedImage);
+            return new ResponseEntity<>(uploadedImage, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

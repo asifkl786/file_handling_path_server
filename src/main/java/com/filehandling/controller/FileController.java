@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.filehandling.payload.FileResponse;
 import com.filehandling.service.FileService;
-import com.filehandling.serviceImple.FileServiceImple;
-
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController

@@ -47,6 +47,7 @@ public class FileUploadController {
     // Build download file REST API
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> download(@PathVariable("fileId")String fileId) throws Exception {
+    	logger.info("Recived Request to download file with Name :: {}",fileId);
         FileUpload fileUpload = null;
         fileUpload = uploadService.downloadFile(fileId);
         return ResponseEntity.ok()
