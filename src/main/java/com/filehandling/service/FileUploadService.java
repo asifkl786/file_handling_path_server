@@ -1,7 +1,5 @@
 package com.filehandling.service;
 
-import lombok.AllArgsConstructor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import com.filehandling.entity.FileUpload;
 import com.filehandling.repository.FileUploadRepository;
 
 @Service
-@AllArgsConstructor
 public class FileUploadService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadService.class);
@@ -29,7 +26,7 @@ public class FileUploadService {
 	                if (fileName.contains("..")) {
 	                    throw new Exception("The file name is invalid" + fileName);
 	                }
-	                FileUpload fileUpload = new FileUpload(fileName, file.getContentType(), file.getBytes());
+	                FileUpload fileUpload = new FileUpload(file.getOriginalFilename(), file.getContentType(), file.getBytes());
 	                logger.info("File Upload Successfully with Name ::{} ",fileName);
 	                return uploadRepository.save(fileUpload);
 	            } catch (Exception e) {

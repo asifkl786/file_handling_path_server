@@ -25,7 +25,7 @@ public class FileEntityyController {
         return new ResponseEntity<>(fileEntity,HttpStatus.CREATED);
     }
 
-    @GetMapping("/download/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FileEntityy> downloadFile(@PathVariable Long id) {
         FileEntityy fileEntity = fileService.getFile(id);
         // return ResponseEntity.ok(fileEntity);

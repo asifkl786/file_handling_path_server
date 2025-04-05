@@ -22,6 +22,7 @@ public class FileEntityyService {
     @Autowired
     private FileEntityyRepository fileRepository;
 
+    // file saved location
     private final Path fileStorageLocation = Paths.get("uploads").toAbsolutePath().normalize();
 
     // Allowed file types
@@ -64,7 +65,6 @@ public class FileEntityyService {
             fileEntity.setFileName(fileName);
             fileEntity.setFileType(fileType);
             fileEntity.setFilePath(targetLocation.toString());
-
             return fileRepository.save(fileEntity);
         } catch (IOException ex) {
             throw new RuntimeException("Could not store file " + fileName, ex);

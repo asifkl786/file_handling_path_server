@@ -29,7 +29,7 @@ public class ImageDataService {
 	                .name(file.getOriginalFilename())
 	                .type(file.getContentType())
 	                .imageData(ImageUtils.compressImage(file.getBytes())).build());
-	        logger.info("File Successfully Upload With Name {} ::", file.getOriginalFilename());
+	        logger.info("File Successfully Upload With Name :: {}", file.getOriginalFilename());
 	        System.out.println("Image size: " + imageData.getImageData() + " bytes");
 
 	        if (imageData != null) {
